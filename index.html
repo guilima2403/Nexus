@@ -3,98 +3,385 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Nexus - Cultura em foco</title>
+  <title>Portal UNIFESP - Universidade Federal de São Paulo</title>
   <style>
-    /* Reset básico */
+    /* Reset e variáveis */
+    :root {
+      --verde-unifesp: #006633;
+      --verde-claro: #008040;
+      --branco: #ffffff;
+      --cinza-claro: #f5f5f5;
+      --cinza: #e0e0e0;
+      --cinza-escuro: #333333;
+    }
+    
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
+      font-family: 'Segoe UI', Arial, sans-serif;
     }
     
     /* Estilos gerais */
     body {
-      font-family: Arial, sans-serif;
-      background-color: #111;
-      color: #fff;
-      display: flex;
-      justify-content: center;
-      padding: 40px 20px;
+      background-color: var(--cinza-claro);
+      color: var(--cinza-escuro);
+      line-height: 1.6;
     }
     
-    /* Container principal */
-    .container {
-      max-width: 800px;
-      width: 100%;
-      background-color: #222;
-      padding: 30px;
-      border-radius: 8px;
-      box-shadow: 0 0 15px rgba(0,0,0,0.3);
-    }
-    
-    /* Títulos */
-    h1 {
-      margin-bottom: 20px;
-      font-weight: bold;
-      font-size: 2.5rem;
-      text-align: center;
-      color: #fff;
-    }
-    
-    /* Parágrafos */
-    p {
-      margin-bottom: 20px;
-      font-size: 1.1rem;
-      line-height: 1.5;
-    }
-    
-    /* Lista de links */
-    ul {
-      list-style: none;
-      margin-top: 30px;
-    }
-    
-    ul li {
-      margin-bottom: 15px;
-      padding: 10px;
-      background-color: #333;
-      border-radius: 4px;
-      transition: background-color 0.3s;
-    }
-    
-    ul li:hover {
-      background-color: #444;
-    }
-    
-    /* Links */
     a {
-      color: cyan;
       text-decoration: none;
-      font-size: 1.1rem;
-      display: block;
+      color: var(--verde-unifesp);
     }
     
     a:hover {
       text-decoration: underline;
     }
     
-    /* Link voltar */
-    .back-link {
-      display: inline-block;
-      margin-top: 30px;
-      color: #999;
-      font-size: 1rem;
+    /* Cabeçalho */
+    header {
+      background-color: var(--verde-unifesp);
+      color: var(--branco);
+      padding: 1rem 0;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    
+    .cabecalho-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 2rem;
+    }
+    
+    .logo {
+      display: flex;
+      align-items: center;
+    }
+    
+    .logo img {
+      height: 60px;
+      margin-right: 1rem;
+    }
+    
+    .logo-texto h1 {
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+    
+    .logo-texto p {
+      font-size: 0.9rem;
+      opacity: 0.9;
+    }
+    
+    /* Barra de pesquisa */
+    .barra-pesquisa {
+      width: 300px;
+      position: relative;
+    }
+    
+    .barra-pesquisa input {
+      width: 100%;
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 20px;
+      font-size: 0.9rem;
+    }
+    
+    .barra-pesquisa button {
+      position: absolute;
+      right: 5px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--verde-unifesp);
+    }
+    
+    /* Navegação */
+    nav {
+      background-color: var(--verde-claro);
+    }
+    
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+    
+    .nav-links {
+      display: flex;
+      list-style: none;
+    }
+    
+    .nav-links li {
+      padding: 1rem;
+    }
+    
+    .nav-links a {
+      color: var(--branco);
+      font-weight: 500;
+    }
+    
+    /* Conteúdo principal */
+    .main-container {
+      max-width: 1200px;
+      margin: 2rem auto;
+      padding: 0 2rem;
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 2rem;
+    }
+    
+    /* Seção de notícias */
+    .noticias {
+      background-color: var(--branco);
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      padding: 1.5rem;
+    }
+    
+    .noticias h2 {
+      color: var(--verde-unifesp);
+      border-bottom: 2px solid var(--cinza);
+      padding-bottom: 0.5rem;
+      margin-bottom: 1.5rem;
+    }
+    
+    .noticia-item {
+      margin-bottom: 2rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid var(--cinza);
+    }
+    
+    .noticia-item:last-child {
+      border-bottom: none;
+    }
+    
+    .noticia-item h3 {
+      color: var(--verde-unifesp);
+      margin-bottom: 0.5rem;
+    }
+    
+    .noticia-meta {
+      font-size: 0.8rem;
+      color: #666;
+      margin-bottom: 0.5rem;
+    }
+    
+    .noticia-resumo {
+      margin-bottom: 0.5rem;
+    }
+    
+    .leia-mais {
+      font-weight: bold;
+      font-size: 0.9rem;
+    }
+    
+    /* Sidebar */
+    .sidebar {
+      background-color: var(--branco);
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      padding: 1.5rem;
+    }
+    
+    .sidebar h3 {
+      color: var(--verde-unifesp);
+      border-bottom: 2px solid var(--cinza);
+      padding-bottom: 0.5rem;
+      margin-bottom: 1.5rem;
+    }
+    
+    .sidebar-links {
+      list-style: none;
+    }
+    
+    .sidebar-links li {
+      margin-bottom: 0.8rem;
+    }
+    
+    /* Rodapé */
+    footer {
+      background-color: var(--verde-unifesp);
+      color: var(--branco);
+      padding: 2rem 0;
+      margin-top: 2rem;
+    }
+    
+    .footer-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+    }
+    
+    .footer-col h4 {
+      margin-bottom: 1rem;
+      font-size: 1.1rem;
+    }
+    
+    .footer-col ul {
+      list-style: none;
+    }
+    
+    .footer-col li {
+      margin-bottom: 0.5rem;
+    }
+    
+    .footer-col a {
+      color: var(--branco);
+      opacity: 0.8;
+    }
+    
+    .footer-col a:hover {
+      opacity: 1;
+      text-decoration: underline;
+    }
+    
+    .copyright {
+      text-align: center;
+      padding-top: 2rem;
+      margin-top: 2rem;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      font-size: 0.9rem;
+      opacity: 0.8;
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1>Bem-vindo ao Nexus</h1>
-    <p>Explore reflexões e conteúdos culturais:</p>
+  <!-- Cabeçalho -->
+  <header>
+    <div class="cabecalho-container">
+      <div class="logo">
+        <!-- Logo fictícia - substitua pela real -->
+        <img src="https://www.unifesp.br/images/logo_unifesp.png" alt="UNIFESP">
+        <div class="logo-texto">
+          <h1>UNIFESP</h1>
+          <p>Universidade Federal de São Paulo</p>
+        </div>
+      </div>
+      
+      <!-- Barra de pesquisa -->
+      <div class="barra-pesquisa">
+        <input type="text" placeholder="Pesquisar no portal...">
+        <button>🔍</button>
+      </div>
+    </div>
+  </header>
+  
+  <!-- Navegação -->
+  <nav>
+    <div class="nav-container">
+      <ul class="nav-links">
+        <li><a href="#">A UNIFESP</a></li>
+        <li><a href="#">Ensino</a></li>
+        <li><a href="#">Pesquisa</a></li>
+        <li><a href="#">Extensão</a></li>
+        <li><a href="#">Campi</a></li>
+        <li><a href="#">Editais</a></li>
+      </ul>
+    </div>
+  </nav>
+  
+  <!-- Conteúdo principal -->
+  <main class="main-container">
+    <!-- Seção de notícias -->
+    <section class="noticias">
+      <h2>Últimas Notícias</h2>
+      
+      <article class="noticia-item">
+        <h3>UNIFESP lança novo programa de inclusão digital</h3>
+        <div class="noticia-meta">Publicado em: 15/03/2023 | Campus: São Paulo</div>
+        <p class="noticia-resumo">A Universidade Federal de São Paulo anunciou hoje o lançamento de um programa abrangente de inclusão digital que beneficiará mais de 5.000 estudantes...</p>
+        <a href="#" class="leia-mais">Leia mais →</a>
+      </article>
+      
+      <article class="noticia-item">
+        <h3>Pesquisadores da UNIFESP descobrem nova abordagem para tratamento do câncer</h3>
+        <div class="noticia-meta">Publicado em: 10/03/2023 | Campus: Diadema</div>
+        <p class="noticia-resumo">Um grupo de pesquisadores do Departamento de Ciências Biológicas desenvolveu uma técnica inovadora que pode revolucionar o tratamento de certos tipos de câncer...</p>
+        <a href="#" class="leia-mais">Leia mais →</a>
+      </article>
+      
+      <article class="noticia-item">
+        <h3>Inscrições abertas para o vestibular 2023/2</h3>
+        <div class="noticia-meta">Publicado em: 05/03/2023 | Campus: Todos</div>
+        <p class="noticia-resumo">A UNIFESP está com inscrições abertas para o processo seletivo do segundo semestre de 2023. São mais de 1.200 vagas distribuídas em 30 cursos de graduação...</p>
+        <a href="#" class="leia-mais">Leia mais →</a>
+      </article>
+      
+      <article class="noticia-item">
+        <h3>UNIFESP ocupa 5º lugar no ranking das melhores universidades da América Latina</h3>
+        <div class="noticia-meta">Publicado em: 28/02/2023 | Campus: Todos</div>
+        <p class="noticia-resumo">Segundo o mais recente ranking da QS World University Rankings, a UNIFESP subiu duas posições e agora figura entre as 5 melhores instituições de ensino superior da América Latina...</p>
+        <a href="#" class="leia-mais">Leia mais →</a>
+      </article>
+    </section>
     
-    <ul>
-      <li><a href="artigo1.html">Artigo: O impacto da cultura periférica</a></li>
-      <li>
-        <a href="https://www.sescsp.org.br/editorial/nos-o-poder-das-mulheres-na-construcao-da-historia/" target="_blank">
-          NÓS: O Poder das Mulheres na Construção da História
-        
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <h3>Links Rápidos</h3>
+      <ul class="sidebar-links">
+        <li><a href="#">Calendário Acadêmico</a></li>
+        <li><a href="#">Biblioteca Virtual</a></li>
+        <li><a href="#">SIGA - Sistema Acadêmico</a></li>
+        <li><a href="#">Editais e Concursos</a></li>
+        <li><a href="#">Bolsa de Estudos</a></li>
+        <li><a href="#">Mapa dos Campi</a></li>
+        <li><a href="#">Contatos</a></li>
+      </ul>
+      
+      <h3 style="margin-top: 2rem;">Eventos</h3>
+      <ul class="sidebar-links">
+        <li><a href="#">Semana de Ciência e Tecnologia - 20/03</a></li>
+        <li><a href="#">Palestra: Sustentabilidade nas Universidades - 22/03</a></li>
+        <li><a href="#">Feira de Profissões - 25/03</a></li>
+      </ul>
+    </aside>
+  </main>
+  
+  <!-- Rodapé -->
+  <footer>
+    <div class="footer-container">
+      <div class="footer-col">
+        <h4>Sobre a UNIFESP</h4>
+        <ul>
+          <li><a href="#">História</a></li>
+          <li><a href="#">Estrutura Organizacional</a></li>
+          <li><a href="#">Plano de Desenvolvimento</a></li>
+          <li><a href="#">Dados e Números</a></li>
+        </ul>
+      </div>
+      
+      <div class="footer-col">
+        <h4>Contato</h4>
+        <ul>
+          <li><a href="#">Fale Conosco</a></li>
+          <li><a href="#">Ouvidoria</a></li>
+          <li><a href="#">Imprensa</a></li>
+          <li><a href="#">Trabalhe Conosco</a></li>
+        </ul>
+      </div>
+      
+      <div class="footer-col">
+        <h4>Redes Sociais</h4>
+        <ul>
+          <li><a href="#">Facebook</a></li>
+          <li><a href="#">Twitter</a></li>
+          <li><a href="#">Instagram</a></li>
+          <li><a href="#">YouTube</a></li>
+        </ul>
+      </div>
+    </div>
+    
+    <div class="copyright">
+      © 2023 Universidade Federal de São Paulo - Todos os direitos reservados
+    </div>
+  </footer>
+</body>
+</html>
