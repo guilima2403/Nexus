@@ -15,68 +15,88 @@
     }
     h1 {
       color: #fff;
-      margin-bottom: 20px;
+      margin-bottom: 10px;
+    }
+    .subtitulo {
+      color: #aaa;
+      margin-bottom: 30px;
     }
     ul {
       list-style: none;
       padding: 0;
-      margin-top: 30px;
+      margin-top: 20px;
     }
-    li {
+    .artigo {
       margin-bottom: 20px;
-      padding: 15px;
+      padding: 20px;
       background: #222;
       border-radius: 6px;
       transition: transform 0.2s;
+      border-left: 3px solid #333;
     }
-    li:hover {
+    .artigo:hover {
       transform: translateX(5px);
+      border-left: 3px solid cyan;
     }
-    a {
+    .artigo-titulo {
       color: cyan;
-      text-decoration: none;
-      display: block;
+      font-size: 1.1em;
+      margin-bottom: 5px;
     }
-    a:hover {
-      text-decoration: underline;
+    .artigo-desc {
+      color: #bbb;
+      font-size: 0.9em;
     }
     .pesquisa-container {
       margin: 25px 0;
     }
     #barra-pesquisa {
       width: 100%;
-      padding: 10px 15px;
+      padding: 12px 20px;
       background: #222;
       border: 1px solid #333;
-      border-radius: 20px;
+      border-radius: 30px;
       color: white;
       font-size: 16px;
     }
-    .destaque {
-      border-left: 3px solid cyan;
+    #barra-pesquisa:focus {
+      outline: none;
+      border-color: cyan;
     }
   </style>
 </head>
 <body>
   <h1>Nexus</h1>
-  <p>Explore reflexões e conteúdos culturais:</p>
+  <p class="subtitulo">Explore reflexões e conteúdos culturais</p>
   
   <div class="pesquisa-container">
-    <input type="text" id="barra-pesquisa" placeholder="Digite para filtrar os artigos..." onkeyup="filtrarArtigos()">
+    <input type="text" id="barra-pesquisa" placeholder="Pesquisar artigos..." onkeyup="filtrarArtigos()">
   </div>
 
   <ul id="lista-artigos">
-    <li>
-      <a href="artigo1.html">Artigo: O impacto da cultura periférica</a>
+    <li class="artigo">
+      <a href="artigo1.html">
+        <div class="artigo-titulo">O Impacto da Cultura Periférica</div>
+        <div class="artigo-desc">Análise sobre a influência cultural das periferias urbanas</div>
+      </a>
     </li>
-    <li class="destaque">
-      <a href="https://www.sescsp.org.br/editorial/nos-o-poder-das-mulheres-na-construcao-da-historia/" target="_blank">NÓS: O Poder das Mulheres na Construção da História</a>
+    <li class="artigo">
+      <a href="https://www.sescsp.org.br/editorial/nos-o-poder-das-mulheres-na-construcao-da-historia/" target="_blank">
+        <div class="artigo-titulo">NÓS: O Poder das Mulheres na Construção da História</div>
+        <div class="artigo-desc">Documentário sobre o protagonismo feminino na sociedade</div>
+      </a>
     </li>
-    <li>
-      <a href="artigo2.html">Artigo 2</a>
+    <li class="artigo">
+      <a href="artigo2.html">
+        <div class="artigo-titulo">Expressões Artísticas Contemporâneas</div>
+        <div class="artigo-desc">Novas formas de arte na era digital</div>
+      </a>
     </li>
-    <li>
-      <a href="artigo3.html">Artigo 3</a>
+    <li class="artigo">
+      <a href="artigo3.html">
+        <div class="artigo-titulo">Cultura e Identidade Urbana</div>
+        <div class="artigo-desc">Como as cidades moldam nossas expressões culturais</div>
+      </a>
     </li>
   </ul>
 
@@ -84,18 +104,17 @@
     function filtrarArtigos() {
       const input = document.getElementById('barra-pesquisa');
       const filter = input.value.toUpperCase();
-      const ul = document.getElementById('lista-artigos');
-      const li = ul.getElementsByTagName('li');
+      const artigos = document.querySelectorAll('.artigo');
 
-      for (let i = 0; i < li.length; i++) {
-        const a = li[i].getElementsByTagName('a')[0];
-        const txtValue = a.textContent || a.innerText;
-        if (txtValue.toUpperCase().indexOf(filter) > -1) {
-          li[i].style.display = "";
+      artigos.forEach(artigo => {
+        const titulo = artigo.querySelector('.artigo-titulo').textContent.toUpperCase();
+        const desc = artigo.querySelector('.artigo-desc').textContent.toUpperCase();
+        if (titulo.includes(filter) || desc.includes(filter)) {
+          artigo.style.display = "block";
         } else {
-          li[i].style.display = "none";
+          artigo.style.display = "none";
         }
-      }
+      });
     }
   </script>
 </body>
