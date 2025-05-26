@@ -11,6 +11,7 @@
       padding: 20px;
       max-width: 800px;
       margin: 0 auto;
+      line-height: 1.6;
     }
     h1 {
       color: #fff;
@@ -19,12 +20,17 @@
     ul {
       list-style: none;
       padding: 0;
+      margin-top: 30px;
     }
     li {
-      margin-bottom: 15px;
-      padding: 10px;
+      margin-bottom: 20px;
+      padding: 15px;
       background: #222;
-      border-radius: 4px;
+      border-radius: 6px;
+      transition: transform 0.2s;
+    }
+    li:hover {
+      transform: translateX(5px);
     }
     a {
       color: cyan;
@@ -34,16 +40,20 @@
     a:hover {
       text-decoration: underline;
     }
-    .barra-pesquisa {
-      margin: 20px 0;
+    .pesquisa-container {
+      margin: 25px 0;
     }
-    .barra-pesquisa input {
+    #barra-pesquisa {
       width: 100%;
-      padding: 8px 12px;
+      padding: 10px 15px;
       background: #222;
       border: 1px solid #333;
-      border-radius: 4px;
+      border-radius: 20px;
       color: white;
+      font-size: 16px;
+    }
+    .destaque {
+      border-left: 3px solid cyan;
     }
   </style>
 </head>
@@ -51,14 +61,42 @@
   <h1>Nexus</h1>
   <p>Explore reflexões e conteúdos culturais:</p>
   
-  <div class="barra-pesquisa">
-    <input type="text" placeholder="Pesquisar...">
+  <div class="pesquisa-container">
+    <input type="text" id="barra-pesquisa" placeholder="Digite para filtrar os artigos..." onkeyup="filtrarArtigos()">
   </div>
 
-  <ul>
-    <li><a href="artigo1.html">Artigo: O impacto da cultura periférica</a></li>
-    <li><a href="artigo2.html">Artigo 2</a></li>
-    <li><a href="artigo3.html">Artigo 3</a></li>
+  <ul id="lista-artigos">
+    <li>
+      <a href="artigo1.html">Artigo: O impacto da cultura periférica</a>
+    </li>
+    <li class="destaque">
+      <a href="https://www.sescsp.org.br/editorial/nos-o-poder-das-mulheres-na-construcao-da-historia/" target="_blank">NÓS: O Poder das Mulheres na Construção da História</a>
+    </li>
+    <li>
+      <a href="artigo2.html">Artigo 2</a>
+    </li>
+    <li>
+      <a href="artigo3.html">Artigo 3</a>
+    </li>
   </ul>
+
+  <script>
+    function filtrarArtigos() {
+      const input = document.getElementById('barra-pesquisa');
+      const filter = input.value.toUpperCase();
+      const ul = document.getElementById('lista-artigos');
+      const li = ul.getElementsByTagName('li');
+
+      for (let i = 0; i < li.length; i++) {
+        const a = li[i].getElementsByTagName('a')[0];
+        const txtValue = a.textContent || a.innerText;
+        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+          li[i].style.display = "";
+        } else {
+          li[i].style.display = "none";
+        }
+      }
+    }
+  </script>
 </body>
 </html>
