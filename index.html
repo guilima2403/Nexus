@@ -2,117 +2,422 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <title>Nexus - Cultura em foco</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nexus - Portal Cultural</title>
   <style>
+    :root {
+      --primary: #00c8c8;
+      --primary-dark: #009999;
+      --dark: #121212;
+      --darker: #0a0a0a;
+      --light: #f5f5f5;
+      --gray: #333333;
+      --light-gray: #444444;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    }
+
     body {
-      background: #111;
-      color: #fff;
-      font-family: sans-serif;
-      padding: 20px;
-      max-width: 800px;
-      margin: 0 auto;
+      background-color: var(--darker);
+      color: var(--light);
       line-height: 1.6;
     }
-    h1 {
-      color: #fff;
-      margin-bottom: 10px;
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
     }
-    .subtitulo {
-      color: #aaa;
-      margin-bottom: 30px;
+
+    header {
+      background: linear-gradient(135deg, var(--darker), var(--gray));
+      padding: 2rem 0;
+      border-bottom: 1px solid var(--primary);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
     }
-    ul {
-      list-style: none;
-      padding: 0;
-      margin-top: 20px;
+
+    .header-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
     }
-    .artigo {
-      margin-bottom: 20px;
-      padding: 20px;
-      background: #222;
-      border-radius: 6px;
-      transition: transform 0.2s;
-      border-left: 3px solid #333;
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 15px;
     }
-    .artigo:hover {
-      transform: translateX(5px);
-      border-left: 3px solid cyan;
+
+    .logo-icon {
+      font-size: 2.5rem;
+      color: var(--primary);
     }
-    .artigo-titulo {
-      color: cyan;
-      font-size: 1.1em;
-      margin-bottom: 5px;
+
+    .logo-text h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      background: linear-gradient(to right, var(--primary), #00e5e5);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
-    .artigo-desc {
-      color: #bbb;
-      font-size: 0.9em;
+
+    .logo-text p {
+      font-size: 0.9rem;
+      color: var(--light);
+      opacity: 0.8;
     }
-    .pesquisa-container {
-      margin: 25px 0;
+
+    .search-bar {
+      width: 100%;
+      max-width: 400px;
+      position: relative;
+      margin-top: 1rem;
     }
-    #barra-pesquisa {
+
+    .search-bar input {
       width: 100%;
       padding: 12px 20px;
-      background: #222;
-      border: 1px solid #333;
+      padding-right: 45px;
+      background: var(--dark);
+      border: 1px solid var(--gray);
       border-radius: 30px;
-      color: white;
-      font-size: 16px;
+      color: var(--light);
+      font-size: 1rem;
+      transition: all 0.3s ease;
     }
-    #barra-pesquisa:focus {
+
+    .search-bar input:focus {
       outline: none;
-      border-color: cyan;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 2px rgba(0, 200, 200, 0.2);
+    }
+
+    .search-bar button {
+      position: absolute;
+      right: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      color: var(--primary);
+      cursor: pointer;
+      font-size: 1.2rem;
+    }
+
+    main {
+      padding: 3rem 0;
+    }
+
+    .section-title {
+      font-size: 1.8rem;
+      margin-bottom: 2rem;
+      position: relative;
+      display: inline-block;
+    }
+
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: 0;
+      width: 60px;
+      height: 3px;
+      background: var(--primary);
+      border-radius: 3px;
+    }
+
+    .articles-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      gap: 30px;
+      margin-top: 2rem;
+    }
+
+    .article-card {
+      background: var(--dark);
+      border-radius: 8px;
+      overflow: hidden;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      border: 1px solid var(--gray);
+    }
+
+    .article-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+      border-color: var(--primary);
+    }
+
+    .article-image {
+      height: 200px;
+      background-size: cover;
+      background-position: center;
+    }
+
+    .article-content {
+      padding: 1.5rem;
+    }
+
+    .article-category {
+      display: inline-block;
+      background: var(--primary);
+      color: var(--darker);
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+
+    .article-title {
+      font-size: 1.3rem;
+      margin-bottom: 10px;
+      color: var(--light);
+      font-weight: 600;
+    }
+
+    .article-excerpt {
+      color: #bbb;
+      margin-bottom: 15px;
+      font-size: 0.95rem;
+    }
+
+    .article-meta {
+      display: flex;
+      justify-content: space-between;
+      color: #777;
+      font-size: 0.85rem;
+      border-top: 1px solid var(--gray);
+      padding-top: 15px;
+    }
+
+    .read-more {
+      color: var(--primary);
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      transition: color 0.3s ease;
+    }
+
+    .read-more:hover {
+      color: #00e5e5;
+      text-decoration: none;
+    }
+
+    footer {
+      background: var(--dark);
+      padding: 3rem 0;
+      margin-top: 3rem;
+      border-top: 1px solid var(--gray);
+    }
+
+    .footer-content {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2rem;
+    }
+
+    .footer-column h3 {
+      color: var(--primary);
+      margin-bottom: 1.2rem;
+      font-size: 1.1rem;
+    }
+
+    .footer-links {
+      list-style: none;
+    }
+
+    .footer-links li {
+      margin-bottom: 0.8rem;
+    }
+
+    .footer-links a {
+      color: #bbb;
+      transition: color 0.3s ease;
+    }
+
+    .footer-links a:hover {
+      color: var(--primary);
+      text-decoration: none;
+    }
+
+    .copyright {
+      text-align: center;
+      margin-top: 3rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--gray);
+      color: #777;
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 768px) {
+      .header-content {
+        flex-direction: column;
+        text-align: center;
+      }
+      
+      .logo {
+        justify-content: center;
+        margin-bottom: 1rem;
+      }
+      
+      .search-bar {
+        margin-top: 1.5rem;
+      }
+      
+      .articles-grid {
+        grid-template-columns: 1fr;
+      }
     }
   </style>
 </head>
 <body>
-  <h1>Nexus</h1>
-  <p class="subtitulo">Explore reflexões e conteúdos culturais</p>
-  
-  <div class="pesquisa-container">
-    <input type="text" id="barra-pesquisa" placeholder="Pesquisar artigos..." onkeyup="filtrarArtigos()">
-  </div>
+  <header>
+    <div class="container">
+      <div class="header-content">
+        <div class="logo">
+          <div class="logo-icon">✧</div>
+          <div class="logo-text">
+            <h1>Nexus</h1>
+            <p>Cultura em foco</p>
+          </div>
+        </div>
+        
+        <div class="search-bar">
+          <input type="text" placeholder="Pesquisar artigos..." id="search-input">
+          <button id="search-button">⌕</button>
+        </div>
+      </div>
+    </div>
+  </header>
 
-  <ul id="lista-artigos">
-    <li class="artigo">
-      <a href="artigo1.html">
-        <div class="artigo-titulo">O Impacto da Cultura Periférica</div>
-        <div class="artigo-desc">Análise sobre a influência cultural das periferias urbanas</div>
-      </a>
-    </li>
-    <li class="artigo">
-      <a href="https://www.sescsp.org.br/editorial/nos-o-poder-das-mulheres-na-construcao-da-historia/" target="_blank">
-        <div class="artigo-titulo">NÓS: O Poder das Mulheres na Construção da História</div>
-        <div class="artigo-desc">Documentário sobre o protagonismo feminino na sociedade</div>
-      </a>
-    </li>
-    <li class="artigo">
-      <a href="artigo2.html">
-        <div class="artigo-titulo">Expressões Artísticas Contemporâneas</div>
-        <div class="artigo-desc">Novas formas de arte na era digital</div>
-      </a>
-    </li>
-    <li class="artigo">
-      <a href="artigo3.html">
-        <div class="artigo-titulo">Cultura e Identidade Urbana</div>
-        <div class="artigo-desc">Como as cidades moldam nossas expressões culturais</div>
-      </a>
-    </li>
-  </ul>
+  <main>
+    <div class="container">
+      <h2 class="section-title">Últimos Artigos</h2>
+      
+      <div class="articles-grid" id="articles-container">
+        <article class="article-card">
+          <div class="article-image" style="background-image: url('https://source.unsplash.com/random/600x400/?culture,urban');"></div>
+          <div class="article-content">
+            <span class="article-category">Cultura Urbana</span>
+            <h3 class="article-title">O Impacto da Cultura Periférica</h3>
+            <p class="article-excerpt">Como as expressões artísticas das periferias estão transformando o cenário cultural nacional e dando voz a novas narrativas.</p>
+            <div class="article-meta">
+              <span>15/03/2023</span>
+              <a href="artigo1.html" class="read-more">Ler mais →</a>
+            </div>
+          </div>
+        </article>
+        
+        <article class="article-card">
+          <div class="article-image" style="background-image: url('https://source.unsplash.com/random/600x400/?women,empowerment');"></div>
+          <div class="article-content">
+            <span class="article-category">Documentário</span>
+            <h3 class="article-title">NÓS: O Poder das Mulheres na História</h3>
+            <p class="article-excerpt">Uma análise profunda sobre o papel fundamental das mulheres na construção da sociedade contemporânea.</p>
+            <div class="article-meta">
+              <span>10/03/2023</span>
+              <a href="https://www.sescsp.org.br/editorial/nos-o-poder-das-mulheres-na-construcao-da-historia/" target="_blank" class="read-more">Acessar →</a>
+            </div>
+          </div>
+        </article>
+        
+        <article class="article-card">
+          <div class="article-image" style="background-image: url('https://source.unsplash.com/random/600x400/?digital,art');"></div>
+          <div class="article-content">
+            <span class="article-category">Arte Digital</span>
+            <h3 class="article-title">Expressões Artísticas Contemporâneas</h3>
+            <p class="article-excerpt">Explorando as novas fronteiras da criação artística na era da tecnologia e da inteligência artificial.</p>
+            <div class="article-meta">
+              <span>08/03/2023</span>
+              <a href="artigo2.html" class="read-more">Ler mais →</a>
+            </div>
+          </div>
+        </article>
+        
+        <article class="article-card">
+          <div class="article-image" style="background-image: url('https://source.unsplash.com/random/600x400/?city,identity');"></div>
+          <div class="article-content">
+            <span class="article-category">Sociologia</span>
+            <h3 class="article-title">Cultura e Identidade Urbana</h3>
+            <p class="article-excerpt">Como os espaços urbanos moldam nossas identidades culturais e relações sociais na modernidade.</p>
+            <div class="article-meta">
+              <span>05/03/2023</span>
+              <a href="artigo3.html" class="read-more">Ler mais →</a>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-column">
+          <h3>Sobre o Nexus</h3>
+          <ul class="footer-links">
+            <li><a href="#">Nossa Missão</a></li>
+            <li><a href="#">Equipe</a></li>
+            <li><a href="#">Parceiros</a></li>
+            <li><a href="#">Editais</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-column">
+          <h3>Categorias</h3>
+          <ul class="footer-links">
+            <li><a href="#">Cultura Urbana</a></li>
+            <li><a href="#">Artes Visuais</a></li>
+            <li><a href="#">Música</a></li>
+            <li><a href="#">Cinema</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-column">
+          <h3>Contato</h3>
+          <ul class="footer-links">
+            <li><a href="#">Fale Conosco</a></li>
+            <li><a href="#">Trabalhe Conosco</a></li>
+            <li><a href="#">Imprensa</a></li>
+            <li><a href="#">Newsletter</a></li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="copyright">
+        © 2023 Nexus - Todos os direitos reservados | Desenvolvido com ♡ para a cultura
+      </div>
+    </div>
+  </footer>
 
   <script>
-    function filtrarArtigos() {
-      const input = document.getElementById('barra-pesquisa');
-      const filter = input.value.toUpperCase();
-      const artigos = document.querySelectorAll('.artigo');
+    document.getElementById('search-button').addEventListener('click', performSearch);
+    document.getElementById('search-input').addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') {
+        performSearch();
+      }
+    });
 
-      artigos.forEach(artigo => {
-        const titulo = artigo.querySelector('.artigo-titulo').textContent.toUpperCase();
-        const desc = artigo.querySelector('.artigo-desc').textContent.toUpperCase();
-        if (titulo.includes(filter) || desc.includes(filter)) {
-          artigo.style.display = "block";
+    function performSearch() {
+      const searchTerm = document.getElementById('search-input').value.toLowerCase();
+      const articles = document.querySelectorAll('.article-card');
+      
+      articles.forEach(article => {
+        const title = article.querySelector('.article-title').textContent.toLowerCase();
+        const excerpt = article.querySelector('.article-excerpt').textContent.toLowerCase();
+        const category = article.querySelector('.article-category').textContent.toLowerCase();
+        
+        if (title.includes(searchTerm) || excerpt.includes(searchTerm) || category.includes(searchTerm)) {
+          article.style.display = 'block';
         } else {
-          artigo.style.display = "none";
+          article.style.display = 'none';
         }
       });
     }
